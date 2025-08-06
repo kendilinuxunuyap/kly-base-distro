@@ -10,8 +10,8 @@ apt-get install git devscripts equivs -y
 #------------------------------------------------------------------------------------
 rootfs="/root/distro/rootfs"
 distro="/root/distro"
-#rm -rf distro/iso
-rm -rf $rootfs
+rm -rf distro/iso
+#rm -rf $rootfs
 mkdir -p /tmp/distro/rootfs
 mkdir -p $rootfs/bin
 #mkdir -p distro/rootfs
@@ -47,14 +47,21 @@ chmod 755 $rootfs/etc/passwd
 #**********************************************************************
 
 for paket in glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp coreutils sqlite  \
-util-linux grep sed mpfr gawk findutils gcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
-tar zlib brotli curl shadow file eudev cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
-e2fsprogs dosfstools initramfs-tools libxml2 expat expat libmd liaio lvm2 popt icu iproute2 \
-net-tools dhcp openrc rsync kbd kernel dialog live-boot live-config parted busybox nano grub \
+util-linux grep sed mpfr gawk findutils libgcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
+tar zlib brotli curl
+do
+$rootfs/bin/kly -ri $paket $rootfs
+#chroot $rootfs /bin/kly -ri $paket; 
+done
+
+
+for paket in shadow file eudev cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
+e2fsprogs dosfstools initramfs-tools libxml2 expat libmd libaio lvm2 popt icu iproute2 \
+net-tools dhcp openrc rsync kbd linux-image dialog live-boot live-config parted busybox nano grub \
 efibootmgr efivar libssh openssh pam 
 do
-$rootfs/bin/kly -i $paket $rootfs
-#chroot $rootfs /bin/kly -ri $paket; 
+#$rootfs/bin/kly -i $paket $rootfs
+chroot $rootfs /bin/kly -ri $paket; 
 done
 
 ### update-initrd
