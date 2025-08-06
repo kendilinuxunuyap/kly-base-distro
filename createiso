@@ -46,6 +46,23 @@ echo root:x:0:0:root:/root:/bin/sh > $rootfs/etc/passwd
 chmod 755 $rootfs/etc/passwd
 #**********************************************************************
 
+$rootfs/bin/bps -i glibc $rootfs
+$rootfs/bin/bps -i readline $rootfs
+$rootfs/bin/bps -i ncurses $rootfs
+$rootfs/bin/bps -i \bash $rootfs
+$rootfs/bin/bps -i openssl $rootfs
+$rootfs/bin/bps -i acl $rootfs
+$rootfs/bin/bps -i attr $rootfs
+$rootfs/bin/bps -i libcap $rootfs
+$rootfs/bin/bps -i gmp $rootfs
+$rootfs/bin/bps -i \grep $rootfs
+$rootfs/bin/bps -i \sed $rootfs
+$rootfs/bin/bps -i libpcre2 $rootfs
+$rootfs/bin/bps -i coreutils $rootfs
+$rootfs/bin/bps -i util-linux $rootfs
+$rootfs/bin/bps -i openrc $rootfs
+
+
 for paket in glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp coreutils sqlite  \
 util-linux grep sed mpfr gawk findutils gcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
 tar zlib brotli curl shadow file eudev cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
@@ -53,7 +70,8 @@ e2fsprogs dosfstools initramfs-tools libxml2 expat expat libmd liaio lvm2 popt i
 net-tools dhcp openrc rsync kbd kernel dialog live-boot live-config parted busybox nano grub \
 efibootmgr efivar libssh openssh pam 
 do
-chroot $rootfs /bin/kly -ri $paket; 
+$rootfs/bin/kly -i $paket $rootfs
+#chroot $rootfs /bin/kly -ri $paket; 
 done
 
 ### update-initrd
