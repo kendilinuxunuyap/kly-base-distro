@@ -31,13 +31,13 @@ bash -c "echo 'nameserver 8.8.8.8' > $rootfs/etc/resolv.conf"
 ### system chroot  bind/mount
 for i in dev dev/pts proc sys; do mount -o bind /$i $rootfs/$i; done
 ### manuel kly-tools install
-$rootfs/bin/busybox wget -O $rootfs/tmp/base-file-1.0.kly https://github.com/kendilinuxunuyap/kly-base-packages/raw/refs/heads/master/base-file/base-file-1.0.kly 1>$rootfs/dev/null 2>$rootfs/dev/null
+$rootfs/bin/busybox wget -O $rootfs/tmp/base-file-1.0.kly https://github.com/bpslinux/kly-temel-paketler/raw/refs/heads/master/base-file/base-file-1.0.kly 1>$rootfs/dev/null 2>$rootfs/dev/null
 $rootfs/bin/busybox tar -xf $rootfs/tmp/base-file-1.0.kly -C $rootfs/tmp/kly/kur
 $rootfs/bin/busybox tar -xf $rootfs/tmp/kly/kur/rootfs.tar.xz -C $rootfs
 
 #paket adresi ekleniyor
 $rootfs/bin/busybox mkdir -p $rootfs/etc/kly
-echo "kendilinuxunuyap/kly-base-packages">$rootfs/etc/kly/sources.list
+echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 
 ### installing kly package in rootfs
 $rootfs/bin/kly -u $rootfs
@@ -45,23 +45,6 @@ $rootfs/bin/kly -u $rootfs
 echo root:x:0:0:root:/root:/bin/sh > $rootfs/etc/passwd 
 chmod 755 $rootfs/etc/passwd
 #**********************************************************************
-
-$rootfs/bin/bps -i glibc $rootfs
-$rootfs/bin/bps -i readline $rootfs
-$rootfs/bin/bps -i ncurses $rootfs
-$rootfs/bin/bps -i \bash $rootfs
-$rootfs/bin/bps -i openssl $rootfs
-$rootfs/bin/bps -i acl $rootfs
-$rootfs/bin/bps -i attr $rootfs
-$rootfs/bin/bps -i libcap $rootfs
-$rootfs/bin/bps -i gmp $rootfs
-$rootfs/bin/bps -i \grep $rootfs
-$rootfs/bin/bps -i \sed $rootfs
-$rootfs/bin/bps -i libpcre2 $rootfs
-$rootfs/bin/bps -i coreutils $rootfs
-$rootfs/bin/bps -i util-linux $rootfs
-$rootfs/bin/bps -i openrc $rootfs
-
 
 for paket in glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp coreutils sqlite  \
 util-linux grep sed mpfr gawk findutils gcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
