@@ -42,7 +42,8 @@ echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 #echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
 
-
+echo "basitdagitim/base-bps-binary-packages">$rootfs/etc/bps/sources.list
+$rootfs/bin/bps -u $rootfs
 #**********************************************************************
 echo root:x:0:0:root:/root:/bin/sh > $rootfs/etc/passwd 
 chmod 755 $rootfs/etc/passwd
@@ -67,20 +68,20 @@ chroot $rootfs /bin/kly -ri $paket;
 done
 #*************************************************************************************
 #*************************************************************************************
-echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
-$rootfs/bin/kly -u $rootfs
+#echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
+#$rootfs/bin/kly -u $rootfs
 
 for paket in lvm2 
 do
 #$rootfs/bin/kly -i $paket $rootfs
-chroot $rootfs /bin/kly -ri $paket; 
+chroot $rootfs /bin/bps -ri $paket; 
 done
-echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
-$rootfs/bin/kly -u $rootfs
+#echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
+#$rootfs/bin/kly -u $rootfs
 
-cd $rootfs/lib64
-ln -s ../usr/lib64/libdevmapper.so.1.02 libdevmapper.so.1.02.1
-chroot $rootfs  /sbin/ldconfig
+#cd $rootfs/lib64
+#ln -s ../usr/lib64/libdevmapper.so.1.02 libdevmapper.so.1.02.1
+#chroot $rootfs  /sbin/ldconfig
 #*************************************************************************************
 #*************************************************************************************
 ### update-initrd
