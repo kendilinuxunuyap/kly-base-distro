@@ -69,13 +69,19 @@ echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
 
 for paket in shadow file eudev cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
-e2fsprogs dosfstools initramfs-tools libxml2 expat libmd libaio lvm2 popt icu iproute2 \
-net-tools dhcp openrc kbd dialog live-boot live-config parted busybox nano grub \
-efibootmgr efivar libssh openssh pam rsync
+e2fsprogs dosfstools initramfs-tools libxml2 expat libmd libaio lvm2 popt icu iproute2 
 do
 #$rootfs/bin/kly -i $paket $rootfs
 chroot $rootfs /bin/kly -ri $paket; 
 done
+
+for paket in net-tools dhcp openrc kbd dialog live-boot live-config parted busybox nano grub \
+efibootmgr efivar libssh openssh pam rsync
+do
+#$rootfs/bin/kly -i $paket $rootfs
+chroot $rootfs /bin/bps -ri $paket; 
+done
+
 
 ### update-initrd
 fname=$(basename $rootfs/boot/config*)
