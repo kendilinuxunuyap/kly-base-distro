@@ -79,9 +79,9 @@ done
 #echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 #$rootfs/bin/kly -u $rootfs
 
-#cd $rootfs/lib64
-#ln -s ../usr/lib64/libdevmapper.so.1.02 libdevmapper.so.1.02.1
-#chroot $rootfs  /sbin/ldconfig
+cd $rootfs/lib64
+ln -s ../usr/lib64/libdevmapper.so.1.02 libdevmapper.so.1.02.1
+chroot $rootfs  /sbin/ldconfig
 #*************************************************************************************
 #*************************************************************************************
 ### update-initrd
