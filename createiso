@@ -18,6 +18,7 @@ mkdir -p $rootfs/bin
 #export PATH=/bbin:$PATH
 cp busybox $rootfs/bin/busybox
 cp kly $rootfs/bin/kly
+cp bps $rootfs/bin/bps
 cd $rootfs/bin/
 ln -s busybox cpio
 #busybox --install -s ./
@@ -50,7 +51,7 @@ for paket in glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp co
 util-linux grep sed mpfr gawk findutils libgcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
 tar zlib brotli curl
 do
-$rootfs/bin/kly -ri $paket $rootfs
+$rootfs/bin/bps -ri $paket $rootfs
 #chroot $rootfs /bin/kly -ri $paket; 
 done
 
@@ -61,7 +62,7 @@ net-tools dhcp openrc rsync kbd linux-image dialog live-boot live-config parted 
 efibootmgr efivar libssh openssh pam 
 do
 #$rootfs/bin/kly -i $paket $rootfs
-chroot $rootfs /bin/kly -ri $paket; 
+chroot $rootfs /bin/bps -ri $paket; 
 done
 
 ### update-initrd
