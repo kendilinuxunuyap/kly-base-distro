@@ -38,10 +38,11 @@ $rootfs/bin/busybox tar -xf $rootfs/tmp/kly/kur/rootfs.tar.xz -C $rootfs
 
 #paket adresi ekleniyor
 $rootfs/bin/busybox mkdir -p $rootfs/etc/kly
-echo "basitdagitim/base-bps-binary-packages">$rootfs/etc/kly/sources.list
-
+echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
+$rootfs/bin/busybox mkdir -p $rootfs/etc/bps
+echo "basitdagitim/base-bps-binary-packages">$rootfs/etc/bps/sources.list
 ### installing kly package in rootfs
-$rootfs/bin/kly -u $rootfs
+$rootfs/bin/bps -u $rootfs
 #**********************************************************************
 echo root:x:0:0:root:/root:/bin/sh > $rootfs/etc/passwd 
 chmod 755 $rootfs/etc/passwd
