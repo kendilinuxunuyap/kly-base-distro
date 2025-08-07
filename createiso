@@ -41,7 +41,7 @@ $rootfs/bin/busybox mkdir -p $rootfs/etc/kly
 echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 #echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
-
+$rootfs/bin/busybox mkdir -p $rootfs/etc/bps
 echo "basitdagitim/base-bps-binary-packages">$rootfs/etc/bps/sources.list
 $rootfs/bin/bps -u $rootfs
 #**********************************************************************
