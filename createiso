@@ -74,7 +74,7 @@ net-tools dhcp openrc kbd dialog live-boot live-config parted busybox nano grub 
 efibootmgr efivar libssh openssh pam rsync
 do
 #$rootfs/bin/kly -i $paket $rootfs
-chroot $rootfs /bin/bps -ri $paket; 
+chroot $rootfs /bin/kly -ri $paket; 
 done
 
 ### update-initrd
