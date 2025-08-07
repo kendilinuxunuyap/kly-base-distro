@@ -39,6 +39,9 @@ $rootfs/bin/busybox tar -xf $rootfs/tmp/kly/kur/rootfs.tar.xz -C $rootfs
 #paket adresi ekleniyor
 $rootfs/bin/busybox mkdir -p $rootfs/etc/kly
 echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
+echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
+$rootfs/bin/kly -u $rootfs
+
 $rootfs/bin/busybox mkdir -p $rootfs/etc/bps
 echo "basitdagitim/base-bps-binary-packages">$rootfs/etc/bps/sources.list
 ### installing kly package in rootfs
@@ -52,7 +55,7 @@ for paket in glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp co
 util-linux grep sed mpfr gawk findutils libgcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
 tar zlib brotli curl
 do
-$rootfs/bin/bps -ri $paket $rootfs
+$rootfs/bin/kly -ri $paket $rootfs
 #chroot $rootfs /bin/kly -ri $paket; 
 done
 
@@ -63,7 +66,7 @@ net-tools dhcp openrc rsync kbd linux-image dialog live-boot live-config parted 
 efibootmgr efivar libssh openssh pam 
 do
 #$rootfs/bin/kly -i $paket $rootfs
-chroot $rootfs /bin/bps -ri $paket; 
+chroot $rootfs /bin/kly -ri $paket; 
 done
 
 ### update-initrd
@@ -88,7 +91,7 @@ cp -pf $rootfs/boot/initrd.img-* $distro/iso/boot/initrd.img
 cp -pf $rootfs/boot/vmlinuz-* $distro/iso/boot/vmlinuz
 rm -rf $rootfs/boot
 #### Create squashfs
-exit 0
+#exit 0
 mksquashfs $rootfs $distro/filesystem.squashfs -comp xz -wildcards
 mv $distro/filesystem.squashfs $distro/iso/live/filesystem.squashfs
 
