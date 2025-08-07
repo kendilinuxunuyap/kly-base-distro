@@ -53,29 +53,25 @@ chmod 755 $rootfs/etc/passwd
 
 for paket in glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp coreutils sqlite  \
 util-linux grep sed mpfr gawk findutils libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
-tar zlib brotli curl file
+tar zlib brotli curl
 do
 $rootfs/bin/kly -ri $paket $rootfs
 #chroot $rootfs /bin/kly -ri $paket; 
 done
 
 
-for paket in file cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc
-do
-#$rootfs/bin/kly -i $paket $rootfs
-chroot $rootfs /bin/kly -ri $paket; 
-done
-
-for paket in net-tools dhcp openrc kbd dialog live-boot live-config parted busybox nano grub \
+for paket in shadow file cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
 e2fsprogs dosfstools initramfs-tools libxml2 expat libmd libaio lvm2 popt icu iproute2 \
-efibootmgr efivar libssh openssh rsync shadow pam
+net-tools dhcp openrc rsync kbd dialog live-boot live-config parted busybox nano grub \
+efibootmgr efivar libssh openssh pam 
 do
 #$rootfs/bin/kly -i $paket $rootfs
 chroot $rootfs /bin/kly -ri $paket; 
 done
 
 
-echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
+
+
 echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
 
