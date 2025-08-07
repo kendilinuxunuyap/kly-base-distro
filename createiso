@@ -53,7 +53,7 @@ chmod 755 $rootfs/etc/passwd
 
 for paket in glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp coreutils sqlite  \
 util-linux grep sed mpfr gawk findutils libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
-tar zlib brotli curl shadow
+tar zlib brotli curl shadow eudev
 do
 $rootfs/bin/bps -ri $paket $rootfs
 #chroot $rootfs /bin/kly -ri $paket; 
@@ -69,7 +69,7 @@ echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
 
 #for paket in shadow file eudev cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc
-for paket in file eudev
+for paket in file
 do
 #$rootfs/bin/kly -i $paket $rootfs
 chroot $rootfs /bin/kly -ri $paket; 
