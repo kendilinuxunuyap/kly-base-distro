@@ -65,7 +65,24 @@ do
 #$rootfs/bin/kly -i $paket $rootfs
 chroot $rootfs /bin/kly -ri $paket; 
 done
+#*************************************************************************************
+#*************************************************************************************
+echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
+$rootfs/bin/kly -u $rootfs
 
+for paket in lvm2 
+do
+#$rootfs/bin/kly -i $paket $rootfs
+chroot $rootfs /bin/kly -ri $paket; 
+done
+echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
+$rootfs/bin/kly -u $rootfs
+
+cd $rootfs/lib64
+ln -s ../usr/lib64/libdevmapper.so.1.02 libdevmapper.so.1.02.1
+chroot $rootfs  /sbin/ldconfig
+#*************************************************************************************
+#*************************************************************************************
 ### update-initrd
 fname=$(basename $rootfs/boot/config*)
 kversion=${fname:7}
@@ -74,6 +91,7 @@ cp $rootfs/boot/config-$kversion $rootfs/etc/kernel-config
 
 chroot $rootfs update-initramfs -u -k $kversion
 
+		
 #### system chroot umount
 for dir in dev dev/pts proc sys ; do    while umount -lf -R $rootfs/$dir 2>/dev/null ; do true; done done
 
