@@ -42,17 +42,14 @@ echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 #echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
 
-$rootfs/bin/busybox mkdir -p $rootfs/etc/bps
-echo "basitdagitim/base-bps-binary-packages">$rootfs/etc/bps/sources.list
-### installing kly package in rootfs
-$rootfs/bin/bps -u $rootfs
+
 #**********************************************************************
 echo root:x:0:0:root:/root:/bin/sh > $rootfs/etc/passwd 
 chmod 755 $rootfs/etc/passwd
 #**********************************************************************
 
 for paket in glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp coreutils sqlite  \
-util-linux grep sed mpfr gawk findutils libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
+util-linux grep sed mpfr gawk findutils libgcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
 tar zlib brotli curl
 do
 $rootfs/bin/kly -ri $paket $rootfs
@@ -60,29 +57,14 @@ $rootfs/bin/kly -ri $paket $rootfs
 done
 
 
-for paket in shadow file cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
+for paket in shadow file eudev cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
 e2fsprogs dosfstools initramfs-tools libxml2 expat libmd libaio lvm2 popt icu iproute2 \
-net-tools dhcp openrc rsync kbd dialog live-boot live-config parted busybox nano grub \
+net-tools dhcp openrc rsync kbd kernel dialog live-boot live-config parted busybox nano grub \
 efibootmgr efivar libssh openssh pam 
 do
 #$rootfs/bin/kly -i $paket $rootfs
 chroot $rootfs /bin/kly -ri $paket; 
 done
-
-
-
-
-echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
-$rootfs/bin/kly -u $rootfs
-
-for paket in kernel libgcc eudev
-do
-#$rootfs/bin/kly -i $paket $rootfs
-chroot $rootfs /bin/kly -ri $paket; 
-done
-
-
-
 
 ### update-initrd
 fname=$(basename $rootfs/boot/config*)
