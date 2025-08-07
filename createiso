@@ -58,8 +58,8 @@ $rootfs/bin/kly -ri $paket $rootfs
 done
 
 
-for paket in shadow file eudev cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
-e2fsprogs dosfstools initramfs-tools libxml2 expat libmd libaio lvm2 popt icu iproute2 \
+for paket in shadow file cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
+e2fsprogs dosfstools initramfs-tools libxml2 expat libmd libaio popt icu iproute2 \
 net-tools dhcp openrc rsync kbd kernel dialog live-boot live-config parted busybox nano grub \
 efibootmgr efivar libssh openssh pam 
 do
@@ -71,7 +71,7 @@ done
 #echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 #$rootfs/bin/kly -u $rootfs
 
-for paket in lvm2 
+for paket in lvm2 eudev
 do
 #$rootfs/bin/kly -i $paket $rootfs
 chroot $rootfs /bin/bps -ri $paket; 
