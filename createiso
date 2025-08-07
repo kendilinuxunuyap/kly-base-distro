@@ -51,8 +51,8 @@ echo root:x:0:0:root:/root:/bin/sh > $rootfs/etc/passwd
 chmod 755 $rootfs/etc/passwd
 #**********************************************************************
 
-for paket in glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp coreutils sqlite  \
-util-linux grep sed mpfr gawk findutils libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
+for paket in glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp  sqlite  \
+ grep sed mpfr gawk findutils libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
 tar zlib brotli curl
 do
 $rootfs/bin/kly -ri $paket $rootfs
@@ -60,10 +60,9 @@ $rootfs/bin/kly -ri $paket $rootfs
 done
 
 
-for paket in shadow file eudev cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
-e2fsprogs dosfstools initramfs-tools libxml2 expat libmd libaio lvm2 popt icu iproute2 \
-net-tools dhcp openrc rsync kbd dialog live-boot live-config parted busybox nano grub \
-efibootmgr efivar libssh openssh pam 
+for paket in shadow file cpio libsepol audit libxcrypt libnsl libbsd libtirpc \
+e2fsprogs dosfstools libxml2 expat libmd libaio lvm2 popt icu iproute2 \
+net-tools dhcp openrc rsync kbd dialog parted busybox nano libssh openssh pam 
 do
 #$rootfs/bin/kly -i $paket $rootfs
 chroot $rootfs /bin/kly -ri $paket; 
@@ -71,7 +70,15 @@ done
 
 echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
-for paket in libgcc initramfs-tools kernel live-boot live-config grub efibootmgr efivar 
+
+for paket in util-linux coreutils eudev kmod initramfs-tools 
+do
+#$rootfs/bin/kly -i $paket $rootfs
+chroot $rootfs /bin/kly -ri $paket; 
+done
+
+
+for paket in libgcc kernel live-boot live-config grub efibootmgr efivar 
 do
 #$rootfs/bin/kly -i $paket $rootfs
 chroot $rootfs /bin/kly -ri $paket; 
