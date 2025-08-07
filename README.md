@@ -1,6 +1,3 @@
-# Basitdagitim
+# kly base distro
 
- xz
- libxml2
- openrc
    

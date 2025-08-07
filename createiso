@@ -37,7 +37,7 @@ $rootfs/bin/busybox tar -xf $rootfs/tmp/kly/kur/rootfs.tar.xz -C $rootfs
 
 #paket adresi ekleniyor
 $rootfs/bin/busybox mkdir -p $rootfs/etc/kly
-echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
+echo "basitdagitim/base-bps-binary-packages">$rootfs/etc/kly/sources.list
 
 ### installing kly package in rootfs
 $rootfs/bin/kly -u $rootfs
@@ -86,6 +86,7 @@ cp -pf $rootfs/boot/initrd.img-* $distro/iso/boot/initrd.img
 cp -pf $rootfs/boot/vmlinuz-* $distro/iso/boot/vmlinuz
 rm -rf $rootfs/boot
 #### Create squashfs
+exit 0
 mksquashfs $rootfs $distro/filesystem.squashfs -comp xz -wildcards
 mv $distro/filesystem.squashfs $distro/iso/live/filesystem.squashfs
 
