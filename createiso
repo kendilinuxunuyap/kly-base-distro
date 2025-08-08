@@ -101,6 +101,9 @@ cp $rootfs/boot/config-$kversion $rootfs/etc/kernel-config
 
 chroot $rootfs update-initramfs -u -k $kversion
 
+cd $rootfs/lib64
+ln -s ../usr/lib64/libdevmapper.so.1.02 libdevmapper.so.1.02.1
+chroot $rootfs  /sbin/ldconfig
 		
 #### system chroot umount
 for dir in dev dev/pts proc sys ; do    while umount -lf -R $rootfs/$dir 2>/dev/null ; do true; done done
