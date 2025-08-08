@@ -80,17 +80,17 @@ done
 #echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 #$rootfs/bin/kly -u $rootfs
 
-cd $rootfs/lib64
-ln -s ../usr/lib64/libdevmapper.so.1.02 libdevmapper.so.1.02.1
-chroot $rootfs  /sbin/ldconfig
+#cd $rootfs/lib64
+#ln -s ../usr/lib64/libdevmapper.so.1.02 libdevmapper.so.1.02.1
+#chroot $rootfs  /sbin/ldconfig
 #*************************************************************************************
-echo "[+] $rootfs dizininin izinleri düzenleniyor..."
-chown -R root:root ${rootfs}/bin ${rootfs}/sbin ${rootfs}/usr/bin ${rootfs}/usr/sbin 	#sahibi root:root olsun
-chown -R root:root ${rootfs}/var ${rootfs}/run ${rootfs}/root	#sahibi root:root olsun
-find ${rootfs} -type d -exec chmod 755 {} \;	# Tüm dizinlere 755 ver
-chmod 600 ${rootfs}/etc/shadow etc/gshadow 2>/dev/null # Hassas dosyaları ayarla
-chmod 1777 ${rootfs}/tmp # /tmp için sticky bit
-echo "[+] $rootfs dizininden iso oluşturuluyor..."
+#echo "[+] $rootfs dizininin izinleri düzenleniyor..."
+#chown -R root:root ${rootfs}/bin ${rootfs}/sbin ${rootfs}/usr/bin ${rootfs}/usr/sbin 	#sahibi root:root olsun
+#chown -R root:root ${rootfs}/var ${rootfs}/run ${rootfs}/root	#sahibi root:root olsun
+#find ${rootfs} -type d -exec chmod 755 {} \;	# Tüm dizinlere 755 ver
+#chmod 600 ${rootfs}/etc/shadow etc/gshadow 2>/dev/null # Hassas dosyaları ayarla
+#chmod 1777 ${rootfs}/tmp # /tmp için sticky bit
+#echo "[+] $rootfs dizininden iso oluşturuluyor..."
 
 #*************************************************************************************
 ### update-initrd
