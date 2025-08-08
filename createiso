@@ -61,21 +61,21 @@ done
 
 for paket in shadow file cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
 e2fsprogs dosfstools libxml2 expat libmd libaio popt icu iproute2 \
-net-tools dhcp openrc rsync kbd kernel dialog live-boot live-config parted busybox nano grub \
-efibootmgr efivar libssh openssh pam 
+net-tools dhcp openrc rsync kbd linux-image dialog live-boot live-config parted busybox nano grub \
+efibootmgr efivar libssh openssh pam  initramfs-tools lvm2 eudev
 do
 #$rootfs/bin/kly -i $paket $rootfs
-chroot $rootfs /bin/kly -ri $paket; 
+chroot $rootfs /bin/bps -ri $paket; 
 done
 #*************************************************************************************
 #*************************************************************************************
 #echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 #$rootfs/bin/kly -u $rootfs
 
-for paket in initramfs-tools lvm2 eudev
+for paket in rsync
 do
 #$rootfs/bin/kly -i $paket $rootfs
-chroot $rootfs /bin/kly -ri $paket; 
+chroot $rootfs /bin/bps -ri $paket; 
 done
 #echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 #$rootfs/bin/kly -u $rootfs
@@ -101,9 +101,9 @@ cp $rootfs/boot/config-$kversion $rootfs/etc/kernel-config
 
 chroot $rootfs update-initramfs -u -k $kversion
 
-cd $rootfs/lib64
-ln -s ../usr/lib64/libdevmapper.so.1.02 libdevmapper.so.1.02.1
-chroot $rootfs  /sbin/ldconfig
+#cd $rootfs/lib64
+#ln -s ../usr/lib64/libdevmapper.so.1.02 libdevmapper.so.1.02.1
+#chroot $rootfs  /sbin/ldconfig
 		
 #### system chroot umount
 for dir in dev dev/pts proc sys ; do    while umount -lf -R $rootfs/$dir 2>/dev/null ; do true; done done
