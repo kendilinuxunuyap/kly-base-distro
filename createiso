@@ -75,7 +75,7 @@ done
 for paket in initramfs-tools lvm2 eudev
 do
 #$rootfs/bin/kly -i $paket $rootfs
-chroot $rootfs /bin/bps -ri $paket; 
+chroot $rootfs /bin/kly -ri $paket; 
 done
 #echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 #$rootfs/bin/kly -u $rootfs
