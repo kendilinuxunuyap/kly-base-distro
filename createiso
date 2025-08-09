@@ -65,7 +65,7 @@ net-tools dhcp openrc rsync kbd linux-image dialog live-boot live-config parted 
 efibootmgr efivar libssh openssh pam  initramfs-tools lvm2 eudev
 do
 #$rootfs/bin/kly -i $paket $rootfs
-chroot $rootfs /bin/bps -ri $paket; 
+chroot $rootfs /bin/kly -ri $paket; 
 done
 #*************************************************************************************
 #*************************************************************************************
@@ -83,6 +83,10 @@ done
 #cd $rootfs/lib64
 #ln -s ../usr/lib64/libdevmapper.so.1.02 libdevmapper.so.1.02.1
 #chroot $rootfs  /sbin/ldconfig
+cd $rootfs/lib64
+ln -s ../usr/lib64/libdevmapper.so.1.02 libdevmapper.so.1.02.1
+ln -s libdevmapper.so.1.02.1 libdevmapper.so.1.02
+chroot $rootfs  /sbin/ldconfig
 #*************************************************************************************
 #echo "[+] $rootfs dizininin izinleri düzenleniyor..."
 #chown -R root:root ${rootfs}/bin ${rootfs}/sbin ${rootfs}/usr/bin ${rootfs}/usr/sbin 	#sahibi root:root olsun
