@@ -61,8 +61,8 @@ done
 
 for paket in \file cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
 e2fsprogs dosfstools libxml2 expat libmd libaio popt icu iproute2 \
-net-tools dhcp openrc rsync kbd kernel dialog live-boot live-config parted busybox nano grub \
-efibootmgr efivar libssh openssh initramfs-tools eudev rsync ext-lvm2 shadow pam
+net-tools dhcp openrc rsync kbd xkernel dialog live-boot live-config parted busybox nano grub \
+efibootmgr efivar libssh openssh initramfs-tools eudev rsync shadow pam
 do
 #$rootfs/bin/kly -i $paket $rootfs
 chroot $rootfs /bin/kly -ri $paket; 
@@ -72,11 +72,11 @@ done
 echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
 
-#for paket in ext-lvm2
-#do
+for paket in kernel ext-lvm2
+do
 #$rootfs/bin/kly -i $paket $rootfs
-#chroot $rootfs /bin/kly -ri $paket; 
-#done
+chroot $rootfs /bin/kly -ri $paket; 
+done
 #echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 #$rootfs/bin/kly -u $rootfs
 
