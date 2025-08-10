@@ -64,7 +64,7 @@ for paket in glibc readline ncurses bash openssl xacl attr libcap libpcre2 gmp c
 util-linux grep sed mpfr gawk findutils libgcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
 tar zlib brotli curl
 do
-$rootfs/bin/kly -i $paket $rootfs
+$rootfs/bin/kly -ri $paket $rootfs
 #chroot $rootfs /bin/kly -ri $paket; 
 done
 
