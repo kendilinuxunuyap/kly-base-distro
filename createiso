@@ -51,21 +51,27 @@ chmod 755 $rootfs/etc/passwd
 #**********************************************************************
 
 echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
-echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
+#echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
 
-for paket in glibc readline ncurses bash openssl xacl attr libcap libpcre2 gmp coreutils sqlite \
-util-linux grep sed mpfr gawk findutils libgcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
-tar zlib brotli curl
+for paket in glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp coreutils sqlite 
 do
 $rootfs/bin/kly -ri $paket $rootfs
 #chroot $rootfs /bin/kly -ri $paket; 
 done
 
 
+echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
+$rootfs/bin/kly -u $rootfs
+for paket in util-linux grep sed mpfr gawk findutils libgcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
+tar zlib brotli curl
+do
+$rootfs/bin/kly -ri $paket $rootfs
+#chroot $rootfs /bin/kly -ri $paket; 
+done
+
 echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
-$rootfs/bin/kly -ri acl $rootfs
 chroot $rootfs /bin/kly -ri openrc;
 
 echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
