@@ -74,7 +74,7 @@ done
 #*************************************************************************************
 #*************************************************************************************
 
-for paket in kernel ext-lvm2
+for paket in kernel lvm2
 do
 #$rootfs/bin/kly -i $paket $rootfs
 chroot $rootfs /bin/kly -ri $paket; 
