@@ -116,6 +116,7 @@ chroot $rootfs  /sbin/ldconfig
 #chmod 1777 ${rootfs}/tmp # /tmp için sticky bit
 #echo "[+] $rootfs dizininden iso oluşturuluyor..."
 #*************************************************************************************
+chroot $rootfs echo -e "1\n1\n"|chroot $rootfs passwd root
 chroot $rootfs useradd live -m -s /bin/sh -d /home/live
 chroot $rootfs echo -e "live\nlive\n"|chroot $rootfs passwd live
 for grp in users tty wheel cdrom audio dip video plugdev netdev; do
