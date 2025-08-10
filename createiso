@@ -58,6 +58,9 @@ $rootfs/bin/kly -ri $paket $rootfs
 #chroot $rootfs /bin/kly -ri $paket; 
 done
 
+echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
+$rootfs/bin/kly -u $rootfs
+
 
 for paket in \file cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
 e2fsprogs dosfstools libxml2 expat libmd libaio popt icu iproute2 \
@@ -69,8 +72,6 @@ chroot $rootfs /bin/kly -ri $paket;
 done
 #*************************************************************************************
 #*************************************************************************************
-echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
-$rootfs/bin/kly -u $rootfs
 
 for paket in kernel ext-lvm2
 do
