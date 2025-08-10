@@ -40,7 +40,7 @@ $rootfs/bin/busybox tar -xf $rootfs/tmp/kly/kur/rootfs.tar.xz -C $rootfs
 #paket adresi ekleniyor
 $rootfs/bin/busybox mkdir -p $rootfs/etc/kly
 echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
-echo "kendilinuxunuyap/kly-base-packages">$rootfs/etc/kly/sources.list
+echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
 $rootfs/bin/busybox mkdir -p $rootfs/etc/bps
 echo "basitdagitim/base-bps-binary-packages">$rootfs/etc/bps/sources.list
@@ -50,7 +50,7 @@ echo root:x:0:0:root:/root:/bin/sh > $rootfs/etc/passwd
 chmod 755 $rootfs/etc/passwd
 #**********************************************************************
 
-echo "kendilinuxunuyap/kly-base-packages">$rootfs/etc/kly/sources.list
+echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 #echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
 
