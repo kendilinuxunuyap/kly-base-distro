@@ -56,9 +56,9 @@ $rootfs/bin/kly -ri $paket $rootfs
 #chroot $rootfs /bin/kly -ri $paket; 
 done
 
-#echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
-#echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
-#$rootfs/bin/kly -u $rootfs
+echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
+echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
+$rootfs/bin/kly -u $rootfs
 
 for paket in util-linux grep sed mpfr gawk findutils libgcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
 tar zlib brotli curl
@@ -67,9 +67,10 @@ $rootfs/bin/kly -i $paket $rootfs
 #chroot $rootfs /bin/kly -ri $paket; 
 done
 
+echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
+$rootfs/bin/kly -u $rootfs
 chroot $rootfs /bin/kly -ri openrc;
 
-#echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
 for paket in \file cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
