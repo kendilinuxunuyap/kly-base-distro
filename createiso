@@ -50,13 +50,40 @@ echo root:x:0:0:root:/root:/bin/sh > $rootfs/etc/passwd
 chmod 755 $rootfs/etc/passwd
 #**********************************************************************
 
-for paket in glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp coreutils sqlite  \
-util-linux grep sed mpfr gawk findutils libgcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
-tar zlib brotli curl
+for paket in glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp coreutils sqlite
 do
 $rootfs/bin/kly -ri $paket $rootfs
 #chroot $rootfs /bin/kly -ri $paket; 
 done
+
+#echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
+#echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
+#$rootfs/bin/kly -u $rootfs
+
+for paket in util-linux grep sed mpfr gawk findutils libgcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
+tar zlib brotli curl
+do
+$rootfs/bin/kly -i $paket $rootfs
+#chroot $rootfs /bin/kly -ri $paket; 
+done
+
+chroot $rootfs /bin/kly -ri openrc;
+
+#echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
+echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
+$rootfs/bin/kly -u $rootfs
+for paket in \file cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
+e2fsprogs dosfstools libxml2 expat libmd libaio popt icu iproute2 \
+net-tools dhcp rsync kbd xkernel dialog live-boot live-config parted busybox nano grub \
+efibootmgr efivar libssh openssh initramfs-tools eudev rsync 
+do
+#$rootfs/bin/kly -i $paket $rootfs
+chroot $rootfs /bin/kly -ri $paket; 
+done
+
+echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
+#echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
+$rootfs/bin/kly -u $rootfs
 
 for paket in kernel ext-lvm2 shadow pam
 do
@@ -64,19 +91,6 @@ do
 chroot $rootfs /bin/kly -ri $paket; 
 done
 
-echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
-echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
-$rootfs/bin/kly -u $rootfs
-
-
-for paket in \file cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
-e2fsprogs dosfstools libxml2 expat libmd libaio popt icu iproute2 \
-net-tools dhcp openrc rsync kbd xkernel dialog live-boot live-config parted busybox nano grub \
-efibootmgr efivar libssh openssh initramfs-tools eudev rsync 
-do
-#$rootfs/bin/kly -i $paket $rootfs
-chroot $rootfs /bin/kly -ri $paket; 
-done
 #*************************************************************************************
 #*************************************************************************************
 
