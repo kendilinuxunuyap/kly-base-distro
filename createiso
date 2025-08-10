@@ -54,7 +54,7 @@ echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 #echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
 
-for paket in  glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp coreutils sqlite \
+for paket in  glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp coreutils sqlite
 do
 $rootfs/bin/kly -ri $paket $rootfs
 #chroot $rootfs /bin/kly -ri $paket; 
