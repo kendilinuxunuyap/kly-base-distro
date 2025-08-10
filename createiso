@@ -61,10 +61,11 @@ do
 $rootfs/bin/kly -ri $paket $rootfs
 #chroot $rootfs /bin/kly -ri $paket; 
 done
-$rootfs/bin/kly -ri acl $rootfs
+
 
 echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
+$rootfs/bin/kly -ri acl $rootfs
 chroot $rootfs /bin/kly -ri openrc;
 
 echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
