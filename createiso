@@ -50,12 +50,6 @@ echo root:x:0:0:root:/root:/bin/sh > $rootfs/etc/passwd
 chmod 755 $rootfs/etc/passwd
 #**********************************************************************
 
-for paket in acl
-do
-$rootfs/bin/kly -ri $paket $rootfs
-#chroot $rootfs /bin/kly -ri $paket; 
-done
-
 echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
@@ -67,6 +61,7 @@ do
 $rootfs/bin/kly -ri $paket $rootfs
 #chroot $rootfs /bin/kly -ri $paket; 
 done
+$rootfs/bin/kly -ri acl $rootfs
 
 echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
