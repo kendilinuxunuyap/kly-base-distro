@@ -65,7 +65,7 @@ done
 
 for paket in shadow file eudev cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
 e2fsprogs dosfstools initramfs-tools libxml2 expat libmd libaio lvm2 popt icu iproute2 \
-net-tools dhcp openrc rsync kbd linux-image dialog live-boot live-config parted busybox nano grub \
+net-tools dhcp openrc rsync kbd kernel dialog live-boot live-config parted busybox nano grub \
 efibootmgr efivar libssh openssh pam 
 do
 #$rootfs/bin/kly -i $paket $rootfs
