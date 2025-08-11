@@ -54,69 +54,29 @@ echo "kendilinuxunuyap/kly-base-packages">$rootfs/etc/kly/sources.list
 #echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
 
-for paket in  glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp coreutils sqlite
-do
-$rootfs/bin/kly -ri $paket $rootfs
-#chroot $rootfs /bin/kly -ri $paket; 
-done
-
-
-#echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
-#$rootfs/bin/kly -u $rootfs
-for paket in util-linux grep sed mpfr gawk findutils libgcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
+for paket in glibc readline ncurses bash openssl acl attr libcap libpcre2 gmp coreutils sqlite  \
+util-linux grep sed mpfr gawk findutils libgcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
 tar zlib brotli curl
 do
 $rootfs/bin/kly -ri $paket $rootfs
 #chroot $rootfs /bin/kly -ri $paket; 
 done
 
-#echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
-#$rootfs/bin/kly -u $rootfs
-chroot $rootfs /bin/kly -ri openrc;
 
-#echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
-#$rootfs/bin/kly -u $rootfs
-for paket in \file cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
-e2fsprogs dosfstools libxml2 expat libmd libaio popt icu iproute2 \
-net-tools dhcp rsync kbd xkernel dialog live-boot live-config parted busybox nano grub \
-efibootmgr efivar libssh openssh initramfs-tools eudev rsync 
+for paket in shadow file eudev cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
+e2fsprogs dosfstools initramfs-tools libxml2 expat libmd libaio lvm2 popt icu iproute2 \
+net-tools dhcp openrc rsync kbd linux-image dialog live-boot live-config parted busybox nano grub \
+efibootmgr efivar libssh openssh pam 
 do
 #$rootfs/bin/kly -i $paket $rootfs
 chroot $rootfs /bin/kly -ri $paket; 
 done
 
-#echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
-#echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
-#$rootfs/bin/kly -u $rootfs
-
-for paket in kernel lvm2 shadow pam
-do
-#$rootfs/bin/kly -i $paket $rootfs
-chroot $rootfs /bin/kly -ri $paket; 
-done
-
-#*************************************************************************************
-#*************************************************************************************
-
-
-#echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
-#$rootfs/bin/kly -u $rootfs
-
-#cd $rootfs/lib64
-#ln -s ../usr/lib64/libdevmapper.so.1.02 libdevmapper.so.1.02.1
-#chroot $rootfs  /sbin/ldconfig
 cd $rootfs/lib64
 ln -s ../usr/lib64/libdevmapper.so.1.02 libdevmapper.so.1.02.1
 ln -s libdevmapper.so.1.02.1 libdevmapper.so.1.02
 chroot $rootfs  /sbin/ldconfig
 #*************************************************************************************
-#echo "[+] $rootfs dizininin izinleri düzenleniyor..."
-#chown -R root:root ${rootfs}/bin ${rootfs}/sbin ${rootfs}/usr/bin ${rootfs}/usr/sbin 	#sahibi root:root olsun
-#chown -R root:root ${rootfs}/var ${rootfs}/run ${rootfs}/root	#sahibi root:root olsun
-#find ${rootfs} -type d -exec chmod 755 {} \;	# Tüm dizinlere 755 ver
-#chmod 600 ${rootfs}/etc/shadow etc/gshadow 2>/dev/null # Hassas dosyaları ayarla
-#chmod 1777 ${rootfs}/tmp # /tmp için sticky bit
-#echo "[+] $rootfs dizininden iso oluşturuluyor..."
 #*************************************************************************************
 chroot $rootfs echo -e "1\n1\n"|chroot $rootfs passwd root
 chroot $rootfs useradd live -m -s /bin/sh -d /home/live
@@ -133,13 +93,8 @@ fname=$(basename $rootfs/boot/config*)
 kversion=${fname:7}
 mv $rootfs/boot/config* $rootfs/boot/config-$kversion
 cp $rootfs/boot/config-$kversion $rootfs/etc/kernel-config
-
 chroot $rootfs update-initramfs -u -k $kversion
 
-#cd $rootfs/lib64
-#ln -s ../usr/lib64/libdevmapper.so.1.02 libdevmapper.so.1.02.1
-#chroot $rootfs  /sbin/ldconfig
-		
 #### system chroot umount
 for dir in dev dev/pts proc sys ; do    while umount -lf -R $rootfs/$dir 2>/dev/null ; do true; done done
 
