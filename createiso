@@ -32,7 +32,7 @@ bash -c "echo 'nameserver 8.8.8.8' > $rootfs/etc/resolv.conf"
 ### system chroot  bind/mount
 for i in dev dev/pts proc sys; do mount -o bind /$i $rootfs/$i; done
 ### manuel kly-tools install
-$rootfs/bin/busybox wget -O $rootfs/tmp/base-file-1.0.kly https://github.com/bpslinux/kly-temel-paketler/raw/refs/heads/master/base-file/base-file-1.0.kly 1>$rootfs/dev/null 2>$rootfs/dev/null
+$rootfs/bin/busybox wget -O $rootfs/tmp/base-file-1.0.kly https://github.com/kendilinuxunuyap/kly-base-packages/raw/refs/heads/master/base-file/base-file-1.0.kly 1>$rootfs/dev/null 2>$rootfs/dev/null
 $rootfs/bin/busybox tar -xf $rootfs/tmp/base-file-1.0.kly -C $rootfs/tmp/kly/kur
 $rootfs/bin/busybox tar -xf $rootfs/tmp/kly/kur/rootfs.tar.xz -C $rootfs
 
@@ -40,7 +40,7 @@ $rootfs/bin/busybox tar -xf $rootfs/tmp/kly/kur/rootfs.tar.xz -C $rootfs
 #paket adresi ekleniyor
 $rootfs/bin/busybox mkdir -p $rootfs/etc/kly
 echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
-echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
+echo "kendilinuxunuyap/kly-base-packages">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
 $rootfs/bin/busybox mkdir -p $rootfs/etc/bps
 echo "basitdagitim/base-bps-binary-packages">$rootfs/etc/bps/sources.list
@@ -50,7 +50,7 @@ echo root:x:0:0:root:/root:/bin/sh > $rootfs/etc/passwd
 chmod 755 $rootfs/etc/passwd
 #**********************************************************************
 
-echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
+echo "kendilinuxunuyap/kly-base-packages">$rootfs/etc/kly/sources.list
 #echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
 $rootfs/bin/kly -u $rootfs
 
@@ -61,8 +61,8 @@ $rootfs/bin/kly -ri $paket $rootfs
 done
 
 
-echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
-$rootfs/bin/kly -u $rootfs
+#echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
+#$rootfs/bin/kly -u $rootfs
 for paket in util-linux grep sed mpfr gawk findutils libgcc libcap-ng gzip xz-utils zstd bzip2 elfutils libselinux \
 tar zlib brotli curl
 do
@@ -70,12 +70,12 @@ $rootfs/bin/kly -ri $paket $rootfs
 #chroot $rootfs /bin/kly -ri $paket; 
 done
 
-echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
-$rootfs/bin/kly -u $rootfs
+#echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
+#$rootfs/bin/kly -u $rootfs
 chroot $rootfs /bin/kly -ri openrc;
 
-echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
-$rootfs/bin/kly -u $rootfs
+#echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
+#$rootfs/bin/kly -u $rootfs
 for paket in \file cpio libsepol kmod audit libxcrypt libnsl libbsd libtirpc \
 e2fsprogs dosfstools libxml2 expat libmd libaio popt icu iproute2 \
 net-tools dhcp rsync kbd xkernel dialog live-boot live-config parted busybox nano grub \
@@ -85,11 +85,11 @@ do
 chroot $rootfs /bin/kly -ri $paket; 
 done
 
-echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
+#echo "kendilinuxunuyap/kly-binary-packages">$rootfs/etc/kly/sources.list
 #echo "bpslinux/kly-temel-paketler">$rootfs/etc/kly/sources.list
-$rootfs/bin/kly -u $rootfs
+#$rootfs/bin/kly -u $rootfs
 
-for paket in kernel ext-lvm2 shadow pam
+for paket in kernel lvm2 shadow pam
 do
 #$rootfs/bin/kly -i $paket $rootfs
 chroot $rootfs /bin/kly -ri $paket; 
